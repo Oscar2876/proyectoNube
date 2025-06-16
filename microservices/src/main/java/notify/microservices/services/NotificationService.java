@@ -29,6 +29,8 @@ public class NotificationService {
     private final DynamoDbClient dynamoDbClient;
     private final Environment env;
 
+    private final NotificationRepository notificationRepository;
+
 
 
 
@@ -48,6 +50,7 @@ public class NotificationService {
             String response = FirebaseMessaging.getInstance().send(message);
             notification.setSent(true);
             saveToDynamo(notification);
+            notificationRepository.save(notification);
             return "Enviado correctamente: " + response;
         } catch (FirebaseMessagingException e) {
             saveToDynamo(notification);

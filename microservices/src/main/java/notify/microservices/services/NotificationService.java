@@ -6,7 +6,6 @@ import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import notify.microservices.entity.NotificationEntity;
 import notify.microservices.repository.NotificationRepository;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -17,9 +16,6 @@ import java.util.UUID;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 
-import org.checkerframework.checker.units.qual.A;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 @Service

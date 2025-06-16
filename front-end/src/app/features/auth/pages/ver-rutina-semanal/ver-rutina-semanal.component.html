@@ -1,0 +1,17 @@
+<div class="rutina-container">
+  <h2>Mis Rutinas Semanales</h2>
+  
+  <div *ngIf="rutinas.length > 0; else noRutinas">
+    <div *ngFor="let rutina of rutinas" class="rutina-card">
+      <h3>{{ rutina.nombre }}</h3>
+      <p><strong>Descripción:</strong> {{ rutina.descripcion }}</p>
+      <p><strong>Duración (días):</strong> {{ rutina.duracionDias }}</p>
+      <p><strong>Fecha de Inicio:</strong> {{ rutina.fechaInicio | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Fecha de Fin:</strong> {{ rutina.fechaFin | date:'dd/MM/yyyy' }}</p>
+    </div>
+  </div>
+  
+  <ng-template #noRutinas>
+    <p>No tienes rutinas asignadas.</p>
+  </ng-template>
+</div>

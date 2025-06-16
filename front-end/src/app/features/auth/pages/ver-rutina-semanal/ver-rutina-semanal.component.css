@@ -1,0 +1,32 @@
+.rutina-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.rutina-card {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 15px;
+  transition: box-shadow 0.3s ease;
+}
+
+.rutina-card:hover {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+.rutina-card h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #343a40;
+}
+
+.rutina-card p {
+  margin: 5px 0;
+  color: #6c757d;
+}

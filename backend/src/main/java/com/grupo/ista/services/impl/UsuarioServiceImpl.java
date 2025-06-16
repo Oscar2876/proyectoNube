@@ -29,10 +29,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public TUsuario buscarPorCorreo(String correo) {
-        return usuarioRepository.findByCorreo(correo);
-    }
+   @Override
+public TUsuario buscarPorCorreo(String correo) {
+    return usuarioRepository.findByCorreo(correo)
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+}
+
 
     @Override
     public void eliminarUsuario(Long id) {

@@ -21,20 +21,18 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/favicon.ico",
+              "src/assets",
               {
-                "glob": "**/*",
-                "input": "public"
+                "glob": "firebase-messaging-sw.js",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -78,6 +76,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "proxyConfig": "proxy.conf.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
@@ -85,8 +84,9 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               {
-                "glob": "**/*",
-                "input": "public"
+                "glob": "firebase-messaging-sw.js",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [
@@ -99,6 +99,6 @@
     }
   },
   "cli": {
-    "analytics": "46a1c452-08de-4c52-91ea-e68b750c25f2"
+    "analytics": "547a8da6-7e0b-48a4-ae01-60b0e69ac1b1"
   }
 }

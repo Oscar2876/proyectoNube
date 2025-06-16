@@ -1,0 +1,33 @@
+<div class="dashboard-wrapper">
+  <div class="dashboard-card">
+    <h2 class="dashboard-title">  Bienvenido {{ nombre }}</h2>
+
+    <div *ngIf="rol === 'ADMINISTRADOR'">
+      <ul class="dashboard-options">
+        <li><a href="#">Registrar Usuarios</a></li>
+        <li><a href="#">Asignar Rutinas</a></li>
+        <li><a href="#">Asignar Entrenador</a></li>
+      </ul>
+    </div>
+
+    <div *ngIf="rol === 'ENTRENADOR'">
+      <h3 class="dashboard-section-title">Módulo Entrenador</h3>
+      <ul class="dashboard-options">
+        <li><a href="#">Asignar Rutinas a Usuarios</a></li>
+      </ul>
+    </div>
+
+    <div *ngIf="rol === 'USUARIO'">
+      <h3 class="dashboard-section-title">Mis Rutinas</h3>
+      <ul class="dashboard-options">
+        <li><a href="#">Ver Rutina Semanal</a></li>
+        <li><a href="#">Registro Diario</a></li>
+        <li><a href="#">Estadísticas</a></li>
+      </ul>
+    </div>
+
+    <div *ngIf="!rol">
+      <p>No se ha podido determinar el rol del usuario.</p>
+    </div>
+  </div>
+</div>

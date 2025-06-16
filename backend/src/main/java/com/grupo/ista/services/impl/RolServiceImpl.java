@@ -12,8 +12,11 @@ public class RolServiceImpl implements RolService {
     @Autowired
     private RolRepository rolRepository;
 
-    @Override
-    public TRol obtenerPorNombre(String nombre) {
-        return rolRepository.findByNombre(nombre);
-    }
+@Override
+public TRol obtenerPorNombre(String nombre) {
+    return rolRepository.findByNombre(nombre)
+            .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
 }
+
+}
+

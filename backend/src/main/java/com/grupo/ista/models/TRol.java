@@ -19,9 +19,8 @@ public class TRol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre; // Ej: "USUARIO", "ENTRENADOR"
-
-    @ManyToMany(mappedBy = "roles")
+    private String nombre;
+    @OneToMany(mappedBy = "rol")
     private List<TUsuario> usuarios;
 
     @CreationTimestamp

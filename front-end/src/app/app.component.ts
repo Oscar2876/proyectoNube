@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { PushNotificationService } from './core/services/push.notification.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
+
 
 @Component({
   selector: 'app-root',
@@ -7,6 +11,11 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'front-end';
+export class AppComponent implements OnInit {
+  constructor(private pushService: PushNotificationService) {}
+
+  ngOnInit() {
+    this.pushService.requestPermission();
+    this.pushService.listenToMessages();
+  }
 }

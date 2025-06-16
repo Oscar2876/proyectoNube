@@ -1,0 +1,34 @@
+<div class="registro-container">
+    <h2>Registro Diario de Actividad</h2>
+    <form (ngSubmit)="onSubmit()" class="form">
+        <div class="form-group">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" [(ngModel)]="fecha" name="fecha" required class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="duracion">Duración (minutos):</label>
+            <input type="number" id="duracion" [(ngModel)]="duracionMinutos" name="duracionMinutos" required
+                class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="calorias">Calorías Quemadas:</label>
+            <input type="number" id="calorias" [(ngModel)]="caloriasQuemadas" name="caloriasQuemadas" required
+                class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="repeticiones">Repeticiones:</label>
+            <input type="number" id="repeticiones" [(ngModel)]="repeticiones" name="repeticiones" required
+                class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="peso">Peso (kg):</label>
+            <input type="number" step="0.1" id="peso" [(ngModel)]="peso" name="peso" required class="form-control">
+        </div>
+
+        <button type="submit" class="btn-submit">Guardar Registro</button>
+    </form>
+</div>

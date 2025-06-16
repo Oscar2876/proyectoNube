@@ -19,7 +19,6 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     AppComponent,
     DashboardComponent,
-    HttpClientModule,
     RouterModule.forRoot(routes)
   ],
   providers: [

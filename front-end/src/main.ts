@@ -1,6 +1,8 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 // Registrar el Service Worker solo si es compatible con el navegador
 if ('serviceWorker' in navigator) {

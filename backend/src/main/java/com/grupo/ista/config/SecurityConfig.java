@@ -1,8 +1,6 @@
 package com.grupo.ista.config;
 
 import com.grupo.ista.util.JwtAuthFilter;
-
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,7 +27,11 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                         // Endpoints públicos
                         .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/register").permitAll()
 
                         // Endpoints protegidos
                         .requestMatchers("/api/usuarios/**").hasAnyRole("USUARIO", "ENTRENADOR", "ADMIN")

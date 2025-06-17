@@ -4,6 +4,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,7 @@ export class DashboardComponent implements OnInit {
   rol: string | null = null;
   nombre: string | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,    private router: Router,) {}
 
   ngOnInit(): void {
     const token = this.authService.getToken();
@@ -24,5 +25,14 @@ export class DashboardComponent implements OnInit {
       this.rol = decoded.rol || null;
       this.nombre = decoded.nombre || null; 
     }
+  }
+  
+   registerrutinasubmit() {
+    this.router.navigate(['/registro-actividad']);
+  }
+
+    
+   viewrutinasubmit() {
+    this.router.navigate(['/ver-rutina-semanal']);
   }
 }

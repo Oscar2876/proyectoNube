@@ -20,8 +20,8 @@
     <div *ngIf="rol === 'USUARIO'">
       <h3 class="dashboard-section-title">Mis Rutinas</h3>
       <ul class="dashboard-options">
-        <li><a routerLink="/ver-rutina-semanal">Ver Rutina Semanal</a></li>
-        <li><a routerLink="/registro-actividad">Registro Diario</a></li>
+        <li><a (click)="viewrutinasubmit()">Ver Rutina Semanal</a></li>
+        <li><a (click)="registerrutinasubmit()">Registro Diario</a></li>
         <li><a href="#">Estadísticas</a></li>
       </ul>
     </div>

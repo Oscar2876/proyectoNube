@@ -45,30 +45,13 @@ public class NotificationService {
 
             String response = FirebaseMessaging.getInstance().send(message);
             notification.setSent(true);
-            saveToDynamo(notification);
+
             notificationRepository.save(notification);
             return "Enviado correctamente: " + response;
         } catch (FirebaseMessagingException e) {
-            saveToDynamo(notification);
+
             return "Error al enviar: " + e.getMessage();
         }
     }
 
-    private void saveToDynamo(NotificationEntity n) {
-            String environment = env.getProperty("aws.dynamodb.table");
-        Map<String, AttributeValue> item = new HashMap<>();
-        item.put("id", AttributeValue.fromS(UUID.randomUUID().toString()));
-        item.put("userId", AttributeValue.fromS(n.getUserId()));
-        item.put("title", AttributeValue.fromS(n.getTitle()));
-        item.put("body", AttributeValue.fromS(n.getBody()));
-        item.put("deviceToken", AttributeValue.fromS(n.getDeviceToken()));
-        item.put("sent", AttributeValue.fromBool(n.isSent()));
-
-        PutItemRequest request = PutItemRequest.builder()
-                .tableName(environment)
-                .item(item)
-                .build();
-
-        dynamoDbClient.putItem(request);
-    }
 }

@@ -30,7 +30,9 @@ export class DashboardComponent implements OnInit {
    registerrutinasubmit() {
     this.router.navigate(['/registro-actividad']);
   }
-
+  registerrutinasubmitus() {
+    this.router.navigate(['/panel-entrenador']);
+  }
     
    viewrutinasubmit() {
     this.router.navigate(['/ver-rutina-semanal']);

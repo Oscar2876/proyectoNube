@@ -2,25 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { jwtDecode } from 'jwt-decode';
-import { AuthService } from './auth.service';
-
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class RutinaService {
-    private apiUrl = '/api/rutinas';
+  private baseUrl = 'http://localhost:7000/api/rutinas';
 
-    constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient) {}
 
-    getRutinasPorUsuario(): Observable<any[]> {
-        const token = this.authService.getToken();
-        if (!token) {
-            throw new Error('Token no encontrado');
-        }
-        const decoded: any = jwtDecode(token);
-        const usuarioId = decoded.userId; // Asegúrate de que el token contenga "userId"
+  crearRutina(rutina: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}`, rutina);
+  }
 
-        return this.http.get<any[]>(`${this.apiUrl}/usuario/${usuarioId}`);
-    }
+  obtenerRutinasPorUsuario(usuarioId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/usuario/${usuarioId}`);
+  }
 }

@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -22,16 +23,20 @@ export class RegistroActividadComponent {
 
   constructor(
     private authService: AuthService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router : Router
   ) { }
 
-  ngOnInit() {
-    const token = this.authService.getToken();
-    if (token) {
-      const decoded: any = jwtDecode(token);
-      this.userId = decoded.userId; // Asegúrate de que el token contenga "userId"
-    }
+ngOnInit() {
+  const token = this.authService.getToken();
+  if (token) {
+    const decoded: any = jwtDecode(token);
+    console.log("Decoded JWT:", decoded);
+    // Confirma visualmente cuál es el nombre exacto del campo ID en la consola
+    this.userId = decoded?.id;
   }
+}
+
 
   onSubmit() {
     if (!this.userId || !this.fecha) {
@@ -48,11 +53,13 @@ export class RegistroActividadComponent {
       usuario: { id: this.userId }
     };
 
-    this.http.post('/api/actividades', actividad)
+    const headers = this.authService.getAuthHeaders();
+    this.http.post('http://localhost:7000/api/auth/actividades/registrar', actividad,{ headers })
       .subscribe(
         (response: any) => {
           alert('Registro guardado con éxito');
           this.limpiarFormulario();
+          this.router.navigate(['/dashboard']);
         },
         (error) => {
           alert('Error: ' + error.error.message);

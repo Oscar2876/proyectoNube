@@ -30,7 +30,8 @@ public class JwtUtil {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("rol", usuario.getRol().getNombre()); // Aquí se incluye el rol
+        claims.put("id", usuario.getId());
+        claims.put("rol", "ROLE_" + usuario.getRol().getNombre().toUpperCase());
 
         return Jwts.builder()
                 .setClaims(claims)

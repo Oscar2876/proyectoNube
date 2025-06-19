@@ -4,6 +4,7 @@ import { DashboardComponent } from './features/auth/pages/dashboard/dashboard.co
 import { RegisterComponent } from './features/auth/pages/register/register.component';
 import { RegistroActividadComponent } from './features/auth/pages/registro-actividad/registro-actividad.component';
 import { VerRutinaSemanalComponent } from './features/auth/pages/ver-rutina-semanal/ver-rutina-semanal.component';
+import { EntrenadorPanelComponent } from './features/auth/pages/dashboard/entrenador/entrenador-panel/entrenador-panel.component';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,10 @@ export const routes: Routes = [
   {
     path: 'ver-rutina-semanal',
     component: VerRutinaSemanalComponent
+  },
+  {
+    path: 'panel-entrenador',
+    component: EntrenadorPanelComponent
   },
   {
     path: '',

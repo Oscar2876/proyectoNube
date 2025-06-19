@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/actividades")
+@RequestMapping("/api/auth/actividades")
 @CrossOrigin(origins = "http://localhost:4200")
 public class RegistroActividadController {
 
     @Autowired
     private RegistroActividadService actividadService;
 
-    @PostMapping
+
+    @PostMapping("/registrar")
     public TRegistroActividad registrar(@RequestBody TRegistroActividad actividad) {
         return actividadService.registrarActividad(actividad);
     }

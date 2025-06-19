@@ -30,13 +30,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
+                        
+
                          // Endpoints públicos
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/register").permitAll()
+                        .requestMatchers("/api/auth/actividades/registrar").permitAll()
 
                         // Endpoints protegidos
-                        .requestMatchers("/api/usuarios/**").hasAnyRole("USUARIO", "ENTRENADOR", "ADMIN")
+                        .requestMatchers("/api/usuarios/**").hasAnyAuthority("ROLE_ENTRENADOR", "ROLE_ADMINISTRADOR")
                         .requestMatchers("/api/rutinas/**").hasRole("ENTRENADOR")
+                        
 
                         // Swagger permitidos sin autenticación
                         .requestMatchers(

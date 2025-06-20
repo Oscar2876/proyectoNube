@@ -38,8 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/actividades/registrar").permitAll()
 
                         // Endpoints protegidos
-                        .requestMatchers("/api/usuarios/**").hasAnyAuthority("ROLE_ENTRENADOR", "ROLE_ADMINISTRADOR")
-                        .requestMatchers("/api/rutinas/**").hasRole("ENTRENADOR")
+                        .requestMatchers("/api/usuarios/veruser").hasAnyAuthority("ENTRENADOR","USUARIO")
                         
 
                         // Swagger permitidos sin autenticación

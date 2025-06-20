@@ -3,6 +3,8 @@ package com.grupo.ista.controllers;
 import com.grupo.ista.models.TUsuario;
 import com.grupo.ista.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +23,11 @@ public class UsuarioController {
         return usuarioService.registrarUsuario(usuario);
     }
 
-    @GetMapping
+    @GetMapping("/veruser")
     public List<TUsuario> listarUsuarios() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("Autenticado como: " + authentication.getName());
+        System.out.println("Roles: " + authentication.getAuthorities());
         return usuarioService.listarUsuarios();
     }
 

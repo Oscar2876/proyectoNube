@@ -2,7 +2,7 @@
   <div class="dashboard-card">
     <h2 class="dashboard-title">  Bienvenido {{ nombre }}</h2>
 
-    <div *ngIf="rol === 'ROLE_ADMINISTRADOR'">
+    <div *ngIf="rol === 'ADMINISTRADOR'">
       <ul class="dashboard-options">
         <li><a href="#">Registrar Usuarios</a></li>
         <li><a href="#">Asignar Rutinas</a></li>
@@ -10,14 +10,14 @@
       </ul>
     </div>
 
-    <div *ngIf="rol === 'ROLE_ENTRENADOR'">
+    <div *ngIf="rol === 'ENTRENADOR'">
       <h3 class="dashboard-section-title">Módulo Entrenador</h3>
       <ul class="dashboard-options">
         <li><a  style="cursor: pointer;" (click)="registerrutinasubmitus()">Asignar Rutinas a Usuarios</a></li>
       </ul>
     </div>
 
-    <div *ngIf="rol === 'ROLE_USUARIO'">
+    <div *ngIf="rol === 'USUARIO'">
       <h3 class="dashboard-section-title">Mis Rutinas</h3>
       <ul class="dashboard-options">
         <li><a style="cursor: pointer;" (click)="viewrutinasubmit()">Ver Rutina Semanal</a></li>

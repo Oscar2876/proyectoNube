@@ -19,6 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
     const isPublicEndpoint = req.url.includes('/api/auth/login') || req.url.includes('/api/auth/register');
 
     if (token && !isPublicEndpoint) {
+        console.log('🔐 Token enviado en header:', token);
       req = req.clone({
         setHeaders: { Authorization: `Bearer ${token}` }
       });

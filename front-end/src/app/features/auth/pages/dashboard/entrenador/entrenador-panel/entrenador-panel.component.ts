@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../../../core/services/user.service'; 
+import { UserService } from '../../../../../../core/services/user.service';
 import { RutinaService } from '../../../../../../core/services/rutina.service';
+import { AuthService } from '../../../../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-entrenador-panel',
@@ -14,6 +17,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class EntrenadorPanelComponent implements OnInit {
   usuarios: any[] = [];
+  selectedUsuarioId: number | null = null;
+  cargando: boolean = false;
+  autorizado: boolean = false;
 
   rutina = {
     nombre: '',
@@ -26,33 +32,60 @@ export class EntrenadorPanelComponent implements OnInit {
 
   constructor(
     private rutinaService: RutinaService,
-    private usuarioService: UserService
-  ) {}
+    private usuarioService: UserService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.cargarUsuarios();
+    const token = this.authService.getToken();
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      const authorities = decoded?.authorities || [];
+
+      if (authorities.includes('ENTRENADOR') || decoded.rol === 'ENTRENADOR') {
+        this.autorizado = true;
+        this.cargarUsuarios();
+      } else {
+        alert('No tienes permiso para acceder a este módulo.');
+        this.router.navigate(['/dashboard']);
+      }
+    } else {
+      alert('No has iniciado sesión.');
+      this.router.navigate(['/login']);
+    }
   }
 
   cargarUsuarios(): void {
-    this.usuarioService.obtenerUsuarios().subscribe({
+    this.cargando = true;
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    this.usuarioService.obtenerUsuariosConHeaders(headers).subscribe({
       next: (data) => {
-        // 🔍 Filtra usuarios con rol.nombre === 'USUARIO'
-        this.usuarios = data.filter((u: any) => u.rol?.nombre === 'USUARIO');
-        console.log('Usuarios filtrados:', this.usuarios);
+        this.usuarios = data;
+        console.log('🟢 Usuarios completos recibidos:', data);
+        this.cargando = false;
       },
       error: (err) => {
-        console.error('Error al cargar usuarios', err);
+        this.cargando = false;
+        console.error('Error al cargar usuarios:', err);
       }
     });
   }
 
   onSubmit(): void {
-    if (!this.rutina.usuario.id) {
+    if (!this.selectedUsuarioId) {
       alert('Debes seleccionar un usuario');
       return;
     }
 
-    this.rutinaService.crearRutina(this.rutina).subscribe({
+    const rutinaConUsuario = {
+      ...this.rutina,
+      usuario: { id: this.selectedUsuarioId }
+    };
+
+    this.rutinaService.crearRutina(rutinaConUsuario).subscribe({
       next: () => {
         alert('Rutina asignada con éxito');
         this.limpiarFormulario();
@@ -73,5 +106,6 @@ export class EntrenadorPanelComponent implements OnInit {
       fechaFin: '',
       usuario: { id: null }
     };
+    this.selectedUsuarioId = null;
   }
 }

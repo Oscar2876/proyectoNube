@@ -2,22 +2,19 @@
   <h2>Asignar Rutina a Usuarios</h2>
 
   <form (ngSubmit)="onSubmit()" class="formulario">
-    <!-- MOSTRAR SI NO HAY USUARIOS -->
-    <div *ngIf="usuarios?.length === 0">
+    <div *ngIf="usuarios.length === 0">
       <p style="color: red;">No se encontraron usuarios.</p>
     </div>
 
-    <!-- SELECT DE USUARIOS -->
     <div class="form-group">
       <label for="usuario">Seleccionar Usuario:</label>
-      <select id="usuario" [(ngModel)]="rutina.usuario.id" name="usuario" required>
-        <option *ngFor="let usuario of usuarios" [value]="usuario.id">
-          {{ usuario.nombre }} ({{ usuario.correo }})
+      <select id="usuario" [(ngModel)]="rutina.usuario" name="usuario" required>
+        <option *ngFor="let usuario of usuarios" [ngValue]="usuario">
+          {{ usuario.nombre }}
         </option>
       </select>
     </div>
 
-    <!-- CAMPOS DE RUTINA -->
     <div class="form-group">
       <label for="nombre">Nombre de la Rutina:</label>
       <input type="text" id="nombre" [(ngModel)]="rutina.nombre" name="nombre" required>

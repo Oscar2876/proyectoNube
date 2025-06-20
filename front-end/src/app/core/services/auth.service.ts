@@ -11,15 +11,19 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   // Método para iniciar sesión
-  login(email: string, password: string): Observable<string> {
-    return this.http.post<string>(
-      `${this.apiUrl}/login`,
-      { correo: email, clave: password },
-      { responseType: 'text' as 'json' } // Indica que la respuesta es texto plano (el token)
-    ).pipe(
-      tap(token => this.saveToken(token)) // Guarda el token al recibirlo
-    );
-  }
+ login(email: string, password: string): Observable<any> {
+  return this.http.post<{ token: string }>(
+    `${this.apiUrl}/login`,
+    { correo: email, clave: password }
+  ).pipe(
+    tap(response => {
+      // 🔧 Guardar solo el string del JWT, no el objeto completo
+      const token = response.token;
+      localStorage.setItem('auth_token', token);
+      console.log('✅ Token guardado correctamente:', token);
+    })
+  );
+}
 
   // Método para registrar un nuevo usuario
   register(usuario: any): Observable<any> {

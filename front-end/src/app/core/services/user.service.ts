@@ -13,11 +13,10 @@ export class UserService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Método para obtener todos los usuarios
-     obtenerUsuarios() {
-    return this.http.get<any[]>(this.apiUrl, {
-      headers: this.authService.getAuthHeaders()
-    });
-  }
+ obtenerUsuariosConHeaders(headers: HttpHeaders) {
+  return this.http.get<any[]>(`${this.apiUrl}/veruser`, { headers });
+}
+
 
   // También puedes agregar otros métodos si los necesitas:
   obtenerPorId(id: number): Observable<any> {

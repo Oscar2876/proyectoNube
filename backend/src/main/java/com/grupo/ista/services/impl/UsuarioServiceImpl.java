@@ -40,4 +40,5 @@ public TUsuario buscarPorCorreo(String correo) {
     public void eliminarUsuario(Long id) {
         usuarioRepository.deleteById(id);
     }
+    
 }
